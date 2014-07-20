@@ -55,6 +55,15 @@ trainer.learningRate = 0.01
 trainer:train(dataset)
 ```
 
+### Like in Figure 5.3(a)
+If we really want to match the result of Figure 5.3(a) we can use *f*_a(*x*) = (√2 *x*)² − 1 and therefore the following assignment for `y`
+
+```lua
+y = x:clone():mul(math.sqrt(2)):pow(2) - 1
+```
+
+![*x*², regression and neuron's output](img/x2_reg_neu_bis.png)
+
 ## Figure 5.3(b)
 Here is clear, again, that the function sin(*x*) has been manipulated. And, precisely, *f*_b(*x*) = sin(2.5∙*x*). Therefore, by choosing the case (b) in the code (i.e. commenting out the other function definitions, as explained in the script itself) we can proceed and run it with *Torch7*.
 
@@ -77,3 +86,25 @@ Here we are dealing with out first function ∉ 𝒞¹. More specifically, *f*_c
 For this reason we need a higher number of iterations, let's say `maxIteration = 1e5`. Hence, after having commented out what needs to be, we can get the following result
 
 ![|*x*|, regression and neuron's output](img/absx_reg_neu.png)
+
+### The algorithm
+Again here, the only difference is the `y` assignment and, more precisely
+
+```lua
+y = torch.abs(x*2)-1
+```
+
+## Figure 5.3(d)
+In this last case, things get even worse since sign(*x*) is not even continuous (∉ 𝒞⁰)! Nevertheless, we are in a fortunate case, where we can cosider sign(*x*) being the limit function of a tanh(*ax*), *a* → +∞. Moreover, being sign(*x*) sampled, *a* can just be "big" and we don't need to deal with dangerous symbols like "+∞".
+
+### MLP and neurons' outputs
+To reach convergence, we need some more steps, in this case. Setting `maxIteration = 1e6` will do the job. Pay attention that this will take approximately 30 minutes on a MacBook Pro, 2.2 GHz and with an Intel i7.
+
+![sign(*x*), regression and neuron's output](img/singx_reg_neu.png)
+
+### The algorithm
+Same story as before, we just need a different assignment for `y`
+
+```lua
+y = x:gt(0):double() * 2 - 1
+```
