@@ -5,7 +5,7 @@ Reading Bishop's [*Pattern Recognition and Machine Learning*](http://research.mi
 ![Figure 5.2](img/figure_5.3.png)
 
 ## Figure 5.3(a)
-Therefore, I wanted to reproduce these results, starting from 5.3(a). Notice that *f*_a : [−1,+1] → [0,+1], *x* ↦ *x*² whereas **tanh** : ℝ → [−1,+1], but it looks like **tanh** : ℝ → [0,+1]. Therefore, I assume a scaling and shifting factor have been applied to the *tanhs* in order to make them look better on the paper.
+Therefore, I wanted to reproduce these results, starting from 5.3(a). Notice that *f*_a : [−1,+1] → [0,+1], *x* ↦ *x*² whereas **tanh** : ℝ → [−1,+1], but it looks like **tanh** : ℝ → [0,+1]. Therefore, I assume a scaling and shifting factor have been applied to the *tanhs* in order to make them look better on the paper (or *f*_a(*x*) = (√2 *x*)² − 1).
 
 ### MLP and neurons' outputs
 Running [`src/regression.lua`](src/regression.lua) with `plotIntermediateResults = false` and `maxIteration = 1e4` produces the following result
@@ -54,3 +54,26 @@ trainer.learningRate = 0.01
 -- Training --------------------------------------------------------------------
 trainer:train(dataset)
 ```
+
+## Figure 5.3(b)
+Here is clear, again, that the function sin(*x*) has been manipulated. And, precisely, *f*_b(*x*) = sin(2.5∙*x*). Therefore, by choosing the case (b) in the code (i.e. commenting out the other function definitions, as explained in the script itself) we can proceed and run it with *Torch7*.
+
+### MLP and neurons' outputs
+Picking again `plotIntermediateResults = false` and `maxIteration = 1e4` produces decent results
+
+![sin(*x*), regression and neuron's output](img/sinx_reg_neu.png)
+
+### The algorithm
+The only difference is in the creation of the `dataset`, which now is built with a different `y`
+
+```lua
+y = torch.sin(x * 2.5) 
+```
+
+## Figure 5.3(c)
+Here we are dealing with out first function ∉ 𝒞¹. More specifically, *f*_c(*x*) = |2∙*x*| − 1 and we are trying to approximate it with a linear combination of 3 𝒞¹ functions.
+
+### MLP and neurons' outputs
+For this reason we need a higher number of iterations, let's say `maxIteration = 1e5`. Hence, after having commented out what needs to be, we can get the following result
+
+![|*x*|, regression and neuron's output](img/absx_reg_neu.png)
