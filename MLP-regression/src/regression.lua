@@ -24,7 +24,7 @@ plotIntermediateResults = true
 maxIteration = 1e2
 --<<<>>>
 --plotIntermediateResults = false
---maxIteration = 1e4
+--maxIteration = 1e4 -- 1e4 for (a) & (b), 1e5 for (c), 1e6 for (d)
 -->>>
 
 -- Requires --------------------------------------------------------------------
@@ -35,7 +35,20 @@ require 'gnuplot'
 dataset = {}
 function dataset:size() return 50 end
 x = torch.linspace(-1,1,dataset:size())
+
+-- Here you can pick the function you want to regress by commenting out the
+-- other assignments "y = ..."
+--<<< (a)
 y = x:clone():pow(2)
+--y = x:clone():mul(math.sqrt(2)):pow(2) - 1
+--<<< (b) >>>
+--y = torch.sin(x * 2.5)
+--<<< (c) >>>
+--y = torch.abs(x*2)-1
+--<<< (d) >>>
+--y = x:gt(0):double() * 2 - 1
+-->>>
+
 for i = 1, dataset:size() do
    dataset[i] = {x:reshape(x:size(1),1)[i], y:reshape(y:size(1),1)[i]}
 end
