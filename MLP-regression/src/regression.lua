@@ -7,16 +7,16 @@
 -- Instruction -----------------------------------------------------------------
 
 -- + Monitor the progress
--- You can run this script with small (1e2) values for <trainer.maxIteration>
--- and see how the MLP learns the target function through <nbSnapShots> of
--- partial results. Have a look also how the cost function decreses with the
--- progress of the training. Notice that, being randomly initialised, the out-
--- put will change if the script is run another time.
+-- You can run this script with small (1e2) values for <maxIteration> and see
+-- how the MLP learns the target function through <nbSnapShots> partial results.
+-- Have a look also how the cost function decreses with the progress of the
+-- training. Notice that, being randomly initialised, the output will change if
+-- the script is run another time.
 
 -- + Check each neuron
--- You can also choose a higer (1e4) <trainer.maxIteration> and then set to
--- false <plotIntermediateResults>. In this way you will be able to check an
--- optimal regressed function along with the output of the three hidden neurones.
+-- You can also choose a higer (1e4) <maxIteration> and then set to <false>
+-- <plotIntermediateResults>. In this way you will be able to check an optimal
+-- regressed function along with the output of the three hidden neurons.
 
 -- Choose a combination (comment the other)
 --<<<
