@@ -62,7 +62,7 @@ If we really want to match the result of Figure 5.3(a) we can use *f*_a(*x*) = (
 y = x:clone():mul(math.sqrt(2)):pow(2) - 1
 ```
 
-![*x*², regression and neuron's output](img/x2_reg_neu_bis.png)
+![*x*², regression and neuron's output](img/x2_reg_neu_fix.png)
 
 ## Figure 5.3(b)
 Here is clear, again, that the function sin(*x*) has been manipulated. And, precisely, *f*_b(*x*) = sin(2.5∙*x*). Therefore, by choosing the case (b) in the code (i.e. commenting out the other function definitions, as explained in the script itself) we can proceed and run it with *Torch7*.
@@ -76,7 +76,7 @@ Picking again `plotIntermediateResults = false` and `maxIteration = 1e4` produce
 The only difference is in the creation of the `dataset`, which now is built with a different `y`
 
 ```lua
-y = torch.sin(x * 2.5) 
+y = torch.sin(x * 2.5)
 ```
 
 ## Figure 5.3(c)
