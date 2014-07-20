@@ -12,7 +12,7 @@ Running [`src/regression.lua`](src/regression.lua) with `plotIntermediateResults
 
 ![*x*², regression and neuron's output](img/x2_reg_neu.png)
 
-Here we can see the output of the 3 hidden neurons and how they are linearly combined to produce the *regression* of the input function. Notice that, in this specific case, only two hidden nurons are actually contributing to the output since the one with constant output has the same contribution of a bias term.
+Here we can see the output of the 3 hidden neurons and how they are linearly combined to produce the *regression* of the input function. Notice that, in this specific case, only two hidden neurons are actually contributing to the output since the one with constant output has the same contribution of a bias term.
 
 ### Transient
 The script [`src/regression.lua`](src/regression.lua) can also be run with `plotIntermediateResults = true` and `maxIteration = 1e2`. In this way we can monitor the progress of the training algorithm in its early iterations (i.e. its *transient response*) and see how the convergence is reached.
