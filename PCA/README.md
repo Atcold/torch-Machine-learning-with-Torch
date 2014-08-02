@@ -17,5 +17,10 @@ For the *second component*, PCA looks for another (linear) combination — i.e. 
 For the third, same story. In this case, the elements's combination has to be vertical to all previously found one. Etc…
 
 ## What is used for?
-For each *versor*, *principal component* or *eigenvector* there is an associated *power* (or *energy*, if square rooted), *variance* or *eigenvalue* which tells us the "amount of variability". What happens often is that only the first few components have non-neglectable variance. Hence, data dimensionality can be greatly reduced with little loss of information.
-In turn, dimensionality reduction and knowledge of variance distribution can be used to perform a series of tricks I mentioned in the [Why do we care](#why-do-we-care) section above.
+
+### Dimensionality reduction
+For each *versor*, *principal component* or *eigenvector* there is an associated *power* (or *energy*, if square rooted), *variance* or *eigenvalue* which tells us the "amount of variability" in that direction. What happens often is that only the first few components have non-neglectable variance. Hence, data dimensionality can be greatly reduced with little loss of information.
+In turn, dimensionality reduction can be used to perform a series of tricks, such as *training speed-up* and *2/3D visualisation of high dimensional data* I mentioned above.
+
+### Acquiring knowledge of variance distribution
+Knowing the *direction* and the *amount* of variance of our data allows us by playing smartly with it to achieve reasonable data augmentation and data spherificatoin. More about it will be said later, in these notes.
