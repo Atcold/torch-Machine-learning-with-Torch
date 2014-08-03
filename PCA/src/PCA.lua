@@ -13,6 +13,7 @@
 -- Requires --------------------------------------------------------------------
 require 'gnuplot'
 require 'unsup'
+require 'sys'
 
 -- Define dataset --------------------------------------------------------------
 -- Random 2D data with std ~(1.5,6)
@@ -42,9 +43,10 @@ v,s,_ = torch.svd(Xm:t())
 s:cmul(s) -- n
 
 -- v: eigenvectors, s: eigenvalues of covariance matrix
-print('eigenvectors (colums):'); print(v)
-print('eigenvalues (power/variance):'); print(s)
-print('sqrt of the above (energy/std):'); print(torch.sqrt(s))
+b = sys.COLORS.blue; n = sys.COLORS.none
+print(b .. 'eigenvectors (colums):' .. n); print(v)
+print(b .. 'eigenvalues (power/variance):' .. n); print(s)
+print(b .. 'sqrt of the above (energy/std):' .. n); print(torch.sqrt(s))
 
 -- Visualising -----------------------------------------------------------------
 vv = v * torch.diag(torch.sqrt(s))
