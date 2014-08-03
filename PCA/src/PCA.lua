@@ -48,11 +48,12 @@ print(b .. 'eigenvectors (colums):' .. n); print(v)
 print(b .. 'eigenvalues (power/variance):' .. n); print(s)
 print(b .. 'sqrt of the above (energy/std):' .. n); print(torch.sqrt(s))
 
+-- Projection ------------------------------------------------------------------
+X_hat = (X - torch.ones(m,1) * mean) * v[{ {},{1} }]
+
 -- Visualising -----------------------------------------------------------------
 vv = v * torch.diag(torch.sqrt(s))
 vv = torch.cat(torch.ones(2,1) * mean, vv:t())
-
-X_hat = (X - torch.ones(m,1) * mean) * v[{ {},{1} }]
 
 gnuplot.plot{
    {'dataset',X,'+'},
