@@ -32,7 +32,7 @@ So, this is how the data looks like
 
 ![Datasest](img/dataset.png)
 
-This data is said to be *correlated*. This means that all data points' components are somehow meaningful. Let's run PCA
+This data is said to be *correlated*. This means that the value of one component influence the other component, hence both component are "important". Let's run PCA
 
 ![PCA](img/data_pca.png)
 
@@ -52,7 +52,8 @@ sqrt of the above (energy/std):
  1.5255
 [torch.DoubleTensor of dimension 2]
 ```
-Great. Now we have the direction of highest variability (1st component) and its orthogonal one.
+Great. Now we have the direction of highest variability (1st component) and its orthogonal one.  
+If we consider the data in its new reference system (represented by the two principal components), we can say it is *uncorrelated*. Losely speaking, this means that one component does not influence the value of the other component.  
 Let's look at the text output. Here we can see that the total *energy* / *information* of `5.44` (= √[`27.2` + `2.33`]) is spread unevenly across the components. `5.22` on the first and `1.53` on the second one. This means that, if we project the dataset onto the first component and discard the second one, we would retain 92.1% (= `27.2`/[`27.2` + `2.33`]) of the *variance*.
 OK, it looks like cool. Let's project
 
