@@ -86,7 +86,7 @@ v,s,_ = torch.svd(Xm:t())
 s:cmul(s) -- n
 
 -- Projection ------------------------------------------------------------------
-X_hat = (X - torch.ones(m,1) * mean) * v[{ {},{1} }]
+X_hat = (X - torch.ones(m,1) * mean) * v[{ {},{1} }] -- m x 1
 ```
 
 `X`, a `m` × `n` matrix, contains our dataset by rows; in this case `m` = `100` and `n` = `2`, i.e. we have `100` `2`-dimensional datapoints. `X_hat` is our projected data onto the *first component* `v[{ {},{1} }]`.

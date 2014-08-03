@@ -49,7 +49,7 @@ print(b .. 'eigenvalues (power/variance):' .. n); print(s)
 print(b .. 'sqrt of the above (energy/std):' .. n); print(torch.sqrt(s))
 
 -- Projection ------------------------------------------------------------------
-X_hat = (X - torch.ones(m,1) * mean) * v[{ {},{1} }]
+X_hat = (X - torch.ones(m,1) * mean) * v[{ {},{1} }] -- m x 1
 
 -- Visualising -----------------------------------------------------------------
 vv = v * torch.diag(torch.sqrt(s))
