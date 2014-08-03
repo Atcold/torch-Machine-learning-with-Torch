@@ -19,20 +19,20 @@ For the third, same story. In this case, the elements's combination has to be ve
 ## What is used for?
 
 ### Dimensionality reduction
-For each *versor*, *principal component* or *eigenvector* there is an associated *power* (or *energy*, if square rooted), *variance* or *eigenvalue* which tells us the "amount of variability" in that direction. What happens often is that only the first few components have non-neglectable variance. Hence, data dimensionality can be greatly reduced with little loss of information.
+For each *versor*, *principal component* or *eigenvector* there is an associated *power* (or *energy*, if square rooted), *variance* (or *standard deviation*, if square rooted) or *eigenvalue* which tells us the "amount of variability" in that direction. What happens often is that only the first few components have non-neglectable variance. Hence, data dimensionality can be greatly reduced with little loss of information.
 In turn, dimensionality reduction can be used to perform a series of tricks, such as *training speed-up* and *2/3D visualisation of high dimensional data* I mentioned above.
 
 ### Acquiring knowledge of variance distribution
-Knowing the *direction* and the *amount* of variance of our data allows us by playing smartly with it to achieve reasonable data augmentation and data spherificatoin. More about it will be said later, in these notes.
+Knowing the *direction* and the *amount* of variance of our data allows us, by playing smartly with them, to achieve reasonable *data augmentation* and *data spherificatoin*. More about it will be said later, in these notes.
 
 ## OK, let's get our hands dirty with PCA
 So, after all this chatting, let's get a bit more specific with a case study.
-Let's think we have a data living in a 2D space, with an uneven distribution, we'd like to compress into 1D, i.e. onto a line.
+Let's think we have a data living in a 2D space — with an uneven distribution — we'd like to compress into 1D, i.e. onto a line.
 So, this is how the data looks like
 
 ![Datasest](img/dataset.png)
 
-This data is said to be correlated. This means that all data points' components are somehow meaningful. Let's run PCA
+This data is said to be *correlated*. This means that all data points' components are somehow meaningful. Let's run PCA
 
 ![PCA](img/data_pca.png)
 
