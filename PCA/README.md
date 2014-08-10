@@ -1,6 +1,20 @@
 # PCA
 [*Principal component analysis*](http://en.wikipedia.org/wiki/Principal_component_analysis) (*PCA*) finds the directions of greatest variance in a dataset.
 
+## Index
+ - [Why do we care?](#why-do-we-care)
+ - [How does it work?](#how-does-it-work)
+ - [What is used for?](#what-is-used-for)
+    - [Dimensionality reduction](#dimensionality-reduction)
+    - [Acquiring knowledge of variance distribution](#acquiring-knowledge-of-variance-distribution)
+ - [Reducing data dimensionality](#reducing-data-dimensionality)
+    - [Conclusion](#conclusion)
+    - [Run the script](#run-the-script)
+    - [The algorithm](#the-algorithm)
+ - [Data spherification](#data-spherification)
+    - [Run the script](#run-the-script-1)
+    - [The algorithm](#the-algorithm-1)
+
 ## Why do we care?
 PCA can do a great deal of useful things such as:
 
