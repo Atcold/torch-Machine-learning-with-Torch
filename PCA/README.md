@@ -155,13 +155,13 @@ Let our dataset be the pixels of a colour (`3` channels) image of `96` rows and 
 
 Here the pixels are aligned on a plane in a specific order constituting what we call *image*. Let's throw them into a 3D space letting their colour components' values determine their position. Here they are (if you run the code you will have the chance of rotating the 3D scatter plot and have a better idea of the pixels' 3D distribution).
 
-![Peppers pixels's distribution](img/peppers_dst.png)
+![Peppers pixels's distribution](img/peppers_dst_bf.png)
 
 Now we can compute the principal components (as said before, if you run the script you'll be able to change the point of view using the mouse, which will help understand the distribution's shape and the position of the new reference system).
 
-![Peppers PCA view 1](img/peppers_PCA1.png)
-![Peppers PCA view 2](img/peppers_PCA2.png)
-![Peppers PCA view 3](img/peppers_PCA3.png)
+![Peppers PCA view 1](img/peppers_PCA1_bf.png)
+![Peppers PCA view 2](img/peppers_PCA2_bf.png)
+![Peppers PCA view 3](img/peppers_PCA3_bf.png)
 
 Hence, we can add a small amount of centred Gaussian noise along to the principal component directions, scaled by the corresponding standard deviation. Here's how the recontructed image looks like for `12` different draws of the random variable.
 

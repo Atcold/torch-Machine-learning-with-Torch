@@ -12,4 +12,5 @@ set arrow 1 from 0,0,0 to 256,0,0 empty ls 50
 set arrow 2 from 0,0,0 to 0,256,0 empty ls 51
 set arrow 3 from 0,0,0 to 0,0,256 empty ls 52
 set view 50, 20
+set hidden3d
 splot 'aux/datapoints.dat' using 1:2:3:4 with points pt 7 ps 2 lc rgb variable notitle
