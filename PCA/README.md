@@ -18,6 +18,8 @@
     - [Introduction](#introduction)
     - [Example](#example)
     - [Justification](#justification)
+    - [Run the script](#run-the-script-2)
+    - [The algorithm](#the-algorithm-2)
 
 ## Why do we care?
 PCA can do a great deal of useful things such as:
@@ -171,4 +173,48 @@ Someone may argue about why introducing all this framework if, at the end, we si
 ![Peppers disaligned perturbation](img/peppers_disaligned.png)
 
 It is undeniable that *aligned perturbation* produces far more credible results. What happens is that the component that has greater spread will eventually "move" much more than those that are more localised, in terms of colour space coordinates.  
-In this specific case — as we can see from our 3D pixels distribution's scatter plots — the major component closely approximates the *brightness* channel, i.e. the oriented line that gose from (`0`,`0`,`0`) to (`255`,`255`,`255`), even though it is oriented in the opposite direction. Therefore, the highest perturbation will occur in terms of brightness variability, which won't affect the overall appearance of the image, due our *brightness visual invariancy*. Furthermore, all perturbations are compliant with the "data distribution shape", hence the output will look more "natural".
+In this specific case — as we can see from our 3D pixels distribution's scatter plots — the major component (√*s*₁ = `76.2`) closely approximates the *brightness* channel, i.e. the oriented line that gose from (`0`,`0`,`0`) to (`255`,`255`,`255`), even though it is oriented in the opposite direction. Therefore, the highest perturbation will occur in terms of brightness variability, which won't affect the overall appearance of the image, due our *brightness visual invariancy*. Furthermore, all perturbations are compliant with the "data distribution shape", hence the output will look more "natural". The remaining two components (√*s*₂ = `43.1` and √*s*₃ = `29.8`), which are orthogonal to the brightness one, will change mainly the *saturation* (average std radius of `52.4`) and less the *hue* (average rotation of `34.7` degrees).
+
+### Run the script
+In this case, running the script [`src/alignedPerturbation.lua`](src/alignedPerturbation.lua) requires `qlua` for the visualisation of the images. Therefore, we can start an interactive session with
+
+```bash
+qlua -i alignedPerturbation.lua
+```
+
+### The algorithm
+It comprises 3 main parts: (1) loading the dataset, (2) computing PCA (and this is the exact code you can read above) plus scaling the eigenvector with the corresponding eigenvalues' square root and (3) add noise alongside the principal components. In code we have
+
+```lua
+-- Loading dataset/image -------------------------------------------------------
+-- Load image in byte (0-255) format
+img = image.loadByte('aux/peppers.png')
+
+-- Rearranging pixel components along 3-column X matrix
+imgT = img:transpose(1,2):transpose(2,3):clone()
+X = imgT:reshape(img:size(2)*img:size(3),img:size(1))
+
+-- PCA -------------------------------------------------------------------------
+-- see above --
+
+-- Scaling eigenvectors with corresponding std
+vv = v * torch.diag(torch.sqrt(s))
+
+-- Aligned perturbation --------------------------------------------------------
+collection1 = {}
+for i = 1, 12 do
+   perturbation = vv * torch.randn(3,1) * 0.2
+   X_hat = X + torch.ones(m,1) * perturbation:t()
+   img_hatT = X_hat:reshape(img:size(2),img:size(3),img:size(1))
+   img_hat = img_hatT:transpose(2,3):transpose(1,2)
+   table.insert(collection1,img_hat:clone())
+end
+```
+
+The only line that is actually worth mention, which constitutes the algorithm itself, is the following
+
+```lua
+perturbation = vv * torch.randn(3,1) * 0.2
+```
+
+`torch.randn(3,1) * 0.2` is a `0.2` radius spherical random variable; let's call it __*a*__. Therefore, we'd like to add to our pixels: *a*₁ ∙ √*s*₁ ∙ __*v*__₁ + *a*₂ ∙ √*s*₂ ∙ __*v*__₂ + *a*₃ ∙ √*s*₃ ∙ __*v*__₃ = [__vv__] ∙ __*a*__, where [__vv__] is the matrix of scaled eigenvectors, i.e. [__vv__] = [__v__] ∙ `diag(`√__*s*__`)`, with [__v__] being the matrix of eigenvectors, stacked one side each other, and __*s*__ being the vector of eigenvalues.
