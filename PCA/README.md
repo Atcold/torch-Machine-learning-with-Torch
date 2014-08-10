@@ -14,6 +14,10 @@
  - [Data spherification](#data-spherification)
     - [Run the script](#run-the-script-1)
     - [The algorithm](#the-algorithm-1)
+ - [Data augmentation by aligned perturbation](#data-augmentation-by-aligned-perturbation)
+    - [Introduction](#introduction)
+    - [Example](#example)
+    - [Justification](#justification)
 
 ## Why do we care?
 PCA can do a great deal of useful things such as:
@@ -134,3 +138,37 @@ X_rot = (X - torch.ones(m,1) * mean) * v
 X_PCA_white = X_rot * torch.sqrt(s):pow(-1):diag()
 X_ZCA_white = X_PCA_white * v:t()
 ```
+
+## Data augmentation by aligned perturbation
+
+### Introduction
+What does this bombastic title stay for? Well, the concept behind it is actually quite simple.  
+Put yourself in the situation in which your learning algorithm is *overfitting* the dataset, i.e. it's learning the inherent distribution of the *training dataset* and won't generalise well for the *testing one*. Therefore, you'd like to artificially augment your training dataset by adding some noise in a "smart" way. E.g, you could add centred (`0`-mean) small (`0.2`-std) Gaussian noise along the data principal components scaled by the square root of the corresponding eigenvalues. In this way, the "general trend" is preserved and the new fictitious observation will be quite plausible.
+
+### Example
+Let's get our hands on, to get an understanding out of this nice concept.  
+Let our dataset be the pixels of a colour (`3` channels) image of `96` rows and `128` columns.
+
+![Peppers](img/peppers_img.png)
+
+Here the pixels are aligned on a plane in a specific order constituting what we call *image*. Let's throw them into a 3D space letting their colour components' values determine their position. Here they are (if you run the code you will have the chance of rotating the 3D scatter plot and have a better idea of the pixels' 3D distribution).
+
+![Peppers pixels's distribution](img/peppers_dst.png)
+
+Now we can compute the principal components (as said before, if you run the script you'll be able to change the point of view using the mouse, which will help understand the distribution's shape and the position of the new reference system).
+
+![Peppers PCA view 1](img/peppers_PCA1.png)
+![Peppers PCA view 2](img/peppers_PCA2.png)
+![Peppers PCA view 3](img/peppers_PCA3.png)
+
+Hence, we can add a small amount of centred Gaussian noise along to the principal component directions, scaled by the corresponding standard deviation. Here's how the recontructed image looks like for `12` different draws of the random variable.
+
+![Peppers aligned perturbation](img/peppers_aligned.png)
+
+### Justification
+Someone may argue about why introducing all this framework if, at the end, we simply use "random values". Well… the results of using spherical random values (in contrast to our ellipsoidal approach) is the following.
+
+![Peppers disaligned perturbation](img/peppers_disaligned.png)
+
+It is undeniable that *aligned perturbation* produces far more credible results. What happens is that the component that has greater spread will eventually "move" much more than those that are more localised, in terms of colour space coordinates.  
+In this specific case — as we can see from our 3D pixels distribution's scatter plots — the major component closely approximates the *brightness* channel, i.e. the oriented line that gose from (`0`,`0`,`0`) to (`255`,`255`,`255`), even though it is oriented in the opposite direction. Therefore, the highest perturbation will occur in terms of brightness variability, which won't affect the overall appearance of the image, due our *brightness visual invariancy*. Furthermore, all perturbations are compliant with the "data distribution shape", hence the output will look more "natural".
