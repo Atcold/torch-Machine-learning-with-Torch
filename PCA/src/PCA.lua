@@ -55,7 +55,7 @@ s:cmul(s) -- n
 
 -- v: eigenvectors, s: eigenvalues of covariance matrix
 b = sys.COLORS.blue; n = sys.COLORS.none
-print(b .. 'eigenvectors (colums):' .. n); print(v)
+print(b .. 'eigenvectors (columns):' .. n); print(v)
 print(b .. 'eigenvalues (power/variance):' .. n); print(s)
 print(b .. 'sqrt of the above (energy/std):' .. n); print(torch.sqrt(s))
 
